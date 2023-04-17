@@ -101,5 +101,60 @@ public class BinarySearchPS {
 		
 		return ans;
 	}
+	
+	public static char binarySearchChar(char arr[],char target)
+	{
+		int start = 0;
+		int end = arr.length - 1;
+		while(start<=end)
+		{
+			int mid = start + (end - start)/2;
+			
+			if(arr[mid] > target)
+			{
+				end = mid - 1;
+			}else
+			{
+				start = mid + 1;
+			}
+		}
+		
+		return arr[start % arr.length];
+	}
+	
+	public static int infiniteBS(int arr[],int targetNum)
+	{
+		int start = 0;
+		int end = 1;
+		
+		while(arr[end] < targetNum)
+		{
+			int temp = end + 1;
+			end = end + (end - start + 1) *2;
+			start =temp;
+		}
+		return binarySearch(arr,targetNum,start,end);
+	}
+	public static int binarySearch(int arr[],int targetNum,int start , int end)
+	{
+		while(start<=end)
+		{
+			int mid = start + (end - start)/2;
+			
+			if(arr[mid] > targetNum)
+			{
+				end = mid - 1;
+			}else if(arr[mid]<targetNum)
+			{
+				start = mid + 1;
+			}
+			else 
+			{
+				return mid;
+			}
+		}
+		
+		return -1;
+	}
 
 }
