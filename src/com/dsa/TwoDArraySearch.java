@@ -12,6 +12,16 @@ public class TwoDArraySearch {
 						{ 468, 353, 14, 6 } 
 					  };
 		int targetInt = 23;
+		
+		for(int i = 0;i<arr.length;i++) {
+			for(int j = 0;j<arr[i].length;j++)
+			{
+				System.out.print(arr[i][j] + " , ");
+			}
+			System.out.println(arr[i].length);
+		}
+		
+		
 		System.out.println("Serach - target at index : " + Arrays.toString(serachIn2dArray(arr, targetInt)));
 		System.out.println("Serach max num in 2d array : " + maxIn2dArray(arr));
 	}
