@@ -2,7 +2,7 @@ package com.dsa.model;
 
 import java.util.Objects;
 
-public class Employee {
+public class Employee implements Comparable<Employee> {
 
 	private String name;
 	private int salary;
@@ -68,6 +68,11 @@ public class Employee {
 			return false;
 		Employee other = (Employee) obj;
 		return Objects.equals(name, other.name);
+	}
+
+	@Override
+	public int compareTo(Employee o) {
+		return this.getSalary() - o.getSalary();
 	}
 
 }

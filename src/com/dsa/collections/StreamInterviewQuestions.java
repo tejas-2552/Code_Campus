@@ -4,9 +4,12 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,6 +23,8 @@ public class StreamInterviewQuestions {
 		List<Employee> empListForGrp = Arrays.asList(new Employee("t", 1200, 22), new Employee("j", 1300, 33),
 				new Employee("j", 12000, 33), new Employee("q", 200, 20), new Employee("w", 100, 25),
 				new Employee("p", 22000, 33));
+
+		List<Integer> intList = Arrays.asList(2, 5, 62, 3, 6, 7, 7, 8, 56, 55, 55, 2, 3, 11, 22, 44, 20);
 
 		printLine();
 		// Name of the highest Paid Salary employee
@@ -58,6 +63,33 @@ public class StreamInterviewQuestions {
 		printLine();
 		// Print Highest Employee salary by age group
 		printHighestEmpSalByGrp(empListForGrp);
+
+		printLine();
+		// print second lowest and highest num
+		printSecondLowestHighestNum(intList);
+
+		printLine();
+		// Print Limit nums
+		printLimitNums(intList);
+
+		printLine();
+		System.out.println("Print Sorted Emps by salaries grouping by age : ");
+		printSortedEmpByGroupingByAge(empListForGrp);
+
+		printLine();
+		System.out.println("Print Common elements between arrays : ");
+		int[] arr1 = { 2, 3, 5, 7, 8 };
+		int[] arr2 = { 2, 5, 4, 1 };
+		printCommonElementsOfBothArrays(arr1, arr2);
+
+		printLine();
+		System.out.println("Reverse An Array : ");
+		reverseAnArray(arr2);
+
+		printLine();
+		System.out.println("Lenght of Longest String : ");
+		String[] str = { "hello", "hello world", "hello java" };
+		printLengthOflongestString(str);
 	}
 
 	public static void printLine() {
@@ -115,6 +147,96 @@ public class StreamInterviewQuestions {
 				Collectors.reducing((i, j) -> i.getSalary() > j.getSalary() ? i : j))).forEach((i, j) -> {
 					System.out.println(i + " : " + j);
 				});
+
+	}
+
+	public static void printSecondLowestHighestNum(List<Integer> list) {
+		System.out.println("Second Lowest : " + list.stream().sorted().distinct().skip(1).findFirst().get());
+		System.out.println(
+				"Second Highes : " + list.stream().sorted((i, j) -> j - i).distinct().skip(1).findFirst().get());
+	}
+
+	public static void printSortedEmpByGroupingByAge(List<Employee> list) {
+
+		list.stream().collect(Collectors.groupingBy(emp -> emp.getAge(),
+				Collectors.reducing((i, j) -> j.getSalary() > i.getSalary() ? j : i))).forEach((i, j) -> {
+					System.out.println(i + " : " + j);
+				});
+	}
+
+	public static void printCommonElementsOfBothArrays(int[] arr, int[] arr2) {
+
+		Arrays.stream(arr).filter(i -> Arrays.stream(arr2).anyMatch(num -> i == num))
+				.forEach(i -> System.out.print(i + " "));
+		;
+
+	}
+
+	public static void printLimitNums(List<Integer> list) {
+
+		System.out.println("Print First Five nums in sorted way : ");
+		list.stream().sorted().distinct().limit(5).forEach(i -> System.out.print(i + " "));
+		System.out.println();
+		System.out.println("Print Sum of first five nums : ");
+		System.out.println(list.stream().sorted().distinct().limit(5).reduce((i, j) -> i + j).get());
+
+		System.out.println("Skip First five num in sorted way : ");
+		list.stream().sorted().distinct().skip(5).forEach(i -> System.out.print(i + " "));
+		System.out.println();
+		System.out.println("Print Sum of last five nums : ");
+		System.out.println(list.stream().sorted().skip(list.size() - 5).reduce((i, j) -> i + j).get());
+
+		System.out.println();
+		System.out.println("Print Duplicate Elements  : ");
+		list.stream().filter(i -> Collections.frequency(list, i) > 1).distinct()
+				.forEach(ele -> System.out.print(ele + " "));
+
+		System.out.println();
+		System.out.println("Print Squares of each nums : ");
+		list.stream().map(ele -> ele * ele).forEach(i -> System.out.print(i + " "));
+
+		System.out.println();
+		System.out.println("Print Even Odd grouping by key value : ");
+		list.stream().collect(Collectors.groupingBy(emp -> emp % 2 == 0 ? "even" : "odd"))
+				.forEach((i, j) -> System.out.println(i + " : " + j));
 		
+		
+	}
+
+	public static void reverseAnArray(int[] arr) {
+		System.out.println(Arrays.toString(arr));
+		int i = 0;
+		int j = arr.length - 1;
+		while (i < j) {
+			// swap
+			int temp = arr[i];
+			arr[i] = arr[j];
+			arr[j] = temp;
+			i++;
+			j--;
+		}
+		// By Using java 8
+		System.out.println(Arrays.toString(arr));
+	}
+
+	public static void printLengthOflongestString(String[] arr) {
+		System.out.println(Arrays.stream(arr).mapToInt(i -> i.length()).max().getAsInt());
+		stringRoatationCheck();
+	}
+	
+	public static void stringRoatationCheck() {
+		String str = "decode";
+		String checkStr = "codede";
+		String checkStr1 = "dedeco";
+		String checkStr2 = "codeco";
+		
+		str = str + str;
+		System.out.println(checkStr + " : " + checkRotationalString(str,checkStr));
+		System.out.println(checkStr1 + " : " + checkRotationalString(str,checkStr1));
+		System.out.println(checkStr2 + " : " + checkRotationalString(str,checkStr2));
+
+	}
+	public static boolean checkRotationalString(String mainStr, String checkStr) {
+		return mainStr.contains(checkStr);
 	}
 }
