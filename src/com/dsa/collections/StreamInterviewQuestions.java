@@ -90,6 +90,12 @@ public class StreamInterviewQuestions {
 		System.out.println("Lenght of Longest String : ");
 		String[] str = { "hello", "hello world", "hello java" };
 		printLengthOflongestString(str);
+		
+		printLine();
+		System.out.println("String rotation programs : ");
+		stringRoatationCheck();
+		stringLeftRotate();
+		stringRightRotate();
 	}
 
 	public static void printLine() {
@@ -199,8 +205,7 @@ public class StreamInterviewQuestions {
 		System.out.println("Print Even Odd grouping by key value : ");
 		list.stream().collect(Collectors.groupingBy(emp -> emp % 2 == 0 ? "even" : "odd"))
 				.forEach((i, j) -> System.out.println(i + " : " + j));
-		
-		
+
 	}
 
 	public static void reverseAnArray(int[] arr) {
@@ -221,21 +226,37 @@ public class StreamInterviewQuestions {
 
 	public static void printLengthOflongestString(String[] arr) {
 		System.out.println(Arrays.stream(arr).mapToInt(i -> i.length()).max().getAsInt());
-		stringRoatationCheck();
 	}
-	
+
+	public static void stringRightRotate() {
+		int i = 2;
+		String str = "decode";
+		int len = str.length();
+		str = str.substring(len - i) + str.substring(0, len - i);
+		System.out.println(str);
+	}
+
+	public static void stringLeftRotate() {
+		int i = 2;
+		String str = "decode";
+		String roatetedString = str.substring(0, i);
+		str = str.substring(i);
+		roatetedString = str + roatetedString;
+		System.out.println(roatetedString);
+	}
+
 	public static void stringRoatationCheck() {
 		String str = "decode";
 		String checkStr = "codede";
 		String checkStr1 = "dedeco";
 		String checkStr2 = "codeco";
-		
 		str = str + str;
-		System.out.println(checkStr + " : " + checkRotationalString(str,checkStr));
-		System.out.println(checkStr1 + " : " + checkRotationalString(str,checkStr1));
-		System.out.println(checkStr2 + " : " + checkRotationalString(str,checkStr2));
+		System.out.println(checkStr + " : " + checkRotationalString(str, checkStr));
+		System.out.println(checkStr1 + " : " + checkRotationalString(str, checkStr1));
+		System.out.println(checkStr2 + " : " + checkRotationalString(str, checkStr2));
 
 	}
+
 	public static boolean checkRotationalString(String mainStr, String checkStr) {
 		return mainStr.contains(checkStr);
 	}
