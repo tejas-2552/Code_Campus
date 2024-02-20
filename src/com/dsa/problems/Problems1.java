@@ -20,6 +20,11 @@ public class Problems1 {
 		printMaxElementInSlidWindow(arr);
 
 		threeSum(arr, 121);
+		System.out.println();
+		int arr1[] = { 1, 2, 3, 4 };
+		System.out.println(Arrays.toString(findProductOptimized(arr1)));
+		
+		System.out.println(reverseAInteger(4321));
 	}
 
 	// O(n2)
@@ -48,7 +53,7 @@ public class Problems1 {
 	}
 
 	public static int lengthOfLongestSubstring(String str) {
-		// Slinding window problem
+		// Sliding window problem
 		Map<Character, Integer> map = new HashMap<>();
 		int start = 0;
 		int maxLen = 0;
@@ -57,8 +62,8 @@ public class Problems1 {
 			if (map.containsKey(ch)) {
 				start = Math.max(start, map.get(ch) + 1);
 			}
-			maxLen = Math.max(maxLen, i - start + 1);
 			map.put(ch, i);
+			maxLen = Math.max(maxLen, i - start + 1);
 		}
 		return maxLen;
 	}
@@ -83,11 +88,11 @@ public class Problems1 {
 
 	public static int maxSumOfContSubArrayOptimized(int[] arr) {
 		// { 2, 27, 3, 5, 8, 1, 22 };
-		// Using Sliding window
-		int k = 3;
-		int windowSum = 0;
+
 		int maxSum = 0;
+		int windowSum = 0;
 		int start = 0;
+		int k = 3;
 		for (int i = 0; i < arr.length; i++) {
 			windowSum = windowSum + arr[i];
 			if (i >= k - 1) {
@@ -104,7 +109,7 @@ public class Problems1 {
 		int[] maxEleArr = new int[arr.length - (k - 1)];
 		for (int i = 0; i < arr.length - (k - 1); i++) {
 			int maxEle = 0;
-			for (int j = i; j < i + k && j < arr.length; j++) {
+			for (int j = 0; j < i + k && j < arr.length; j++) {
 				maxEle = Math.max(maxEle, arr[j]);
 			}
 			maxEleArr[i] = maxEle;
@@ -113,10 +118,10 @@ public class Problems1 {
 	}
 
 	public static void threeSum(int arr[], int target) {
+
 		Arrays.sort(arr);
 		for (int i = 0; i < arr.length - 2; i++) {
-
-			int start = i + 1;
+			int start = i;
 			int end = arr.length - 1;
 			while (start < end) {
 				int sum = arr[i] + arr[start] + arr[end];
@@ -131,6 +136,52 @@ public class Problems1 {
 				}
 			}
 		}
+
+	}
+
+	// O(n2)
+	public static int[] findProduct(int arr[]) {
+		int[] returnArr = new int[arr.length];
+		for (int i = 0; i < arr.length; i++) {
+			int product = 1;
+			for (int j = 0; j < arr.length; j++) {
+				if (i != j) {
+					product = product * arr[j];
+				}
+			}
+			returnArr[i] = product;
+		}
+		return returnArr;
+	}
+
+	public static int[] findProductOptimized(int arr[]) {
+		System.out.println(Arrays.toString(arr));
+		// Using right and left slide
+		int[] resultArr = new int[arr.length];
+		int temp = 1;
+		for (int i = 0; i < arr.length; i++) {
+			resultArr[i] = temp;
+			temp = temp * arr[i];
+		}
+		System.out.println(Arrays.toString(resultArr));
+		temp = 1;
+		for (int i = arr.length - 1; i >= 0; i--) {
+			resultArr[i] = resultArr[i] * temp;
+			temp = temp * arr[i];
+		}
+		
+		return resultArr;
+	}
+	
+	public static int reverseAInteger(int number) {
+
+		int revNum = 0;
+		while(number > 0) {
+			int mod = number % 10;
+			number = number / 10;
+			revNum = (revNum * 10) + mod;
+		}
+		return revNum;
 	}
 
 }
