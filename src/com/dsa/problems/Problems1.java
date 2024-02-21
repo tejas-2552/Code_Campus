@@ -21,10 +21,12 @@ public class Problems1 {
 
 		threeSum(arr, 121);
 		System.out.println();
-		int arr1[] = { 1, 2, 3, 4 };
+		int arr1[] = { 0, 1, 2, 3, 4, 6 };
 		System.out.println(Arrays.toString(findProductOptimized(arr1)));
-		
+
 		System.out.println(reverseAInteger(4321));
+
+		System.out.println(findMissingNo(arr1));
 	}
 
 	// O(n2)
@@ -169,19 +171,32 @@ public class Problems1 {
 			resultArr[i] = resultArr[i] * temp;
 			temp = temp * arr[i];
 		}
-		
+
 		return resultArr;
 	}
-	
+
 	public static int reverseAInteger(int number) {
 
 		int revNum = 0;
-		while(number > 0) {
+		while (number > 0) {
 			int mod = number % 10;
 			number = number / 10;
 			revNum = (revNum * 10) + mod;
 		}
 		return revNum;
+	}
+
+	// Contigous array
+	public static int findMissingNo(int[] arr) {
+
+		int sum = 0;
+		for (int i = 0; i < arr.length; i++) {
+			sum = sum + arr[i];
+		}
+		int n = arr.length;
+		int diffSum = n * (n + 1) / 2;
+		int diff = diffSum - sum;
+		return diff == 0 ? (arr[n])++ : diff;
 	}
 
 }
