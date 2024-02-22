@@ -1,15 +1,17 @@
 package com.dsa.problems;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class BasicCodingProblems {
 
 	public static void main(String arsg[]) {
 		/*
-		 * 1. Leap year 2. Armstrong 3. palindrome 4. fibonaci series 5. islogram 6.
-		 * Anagram String
+		 * 1. Leap year 2. Armstrong 3. palindrome 4. fibonaci series 5. islogram
+		 *  6. Anagram String
 		 */
 
 		System.out.println("Is Leap Year : " + isLeapYear(2021));
@@ -93,6 +95,18 @@ public class BasicCodingProblems {
 			set.add(ch);
 		}
 		return true;
+	}
+
+	public char repeatedCharacter(String s) {
+		Map<Character, Integer> map = new HashMap<>();
+		for (int i = 0; i < s.length(); i++) {
+			Character ch = s.charAt(i);
+			if (map.containsKey(ch)) {
+				return ch;
+			}
+			map.put(ch, i);
+		}
+		return 'a';
 	}
 
 }

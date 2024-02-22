@@ -2,10 +2,20 @@ package com.dsa.problems;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Queue;
+import java.util.Set;
 
+/*
+ *  1. Two Sums 
+ *  2. Length of longest subString without repeating characters 
+ *  3. Maximum sum of contiguous subArray
+ *  4. Print Max Element array within Sub array
+ */
 public class Problems1 {
 
 	public static void main(String args[]) {
@@ -15,7 +25,7 @@ public class Problems1 {
 
 		System.out.println(lengthOfLongestSubstring("aepwwkew"));
 
-		System.out.println(maxSumOfContSubArrayOptimized(arr));
+		System.out.println(maxSumOfContSubArray(arr));
 
 		printMaxElementInSlidWindow(arr);
 
@@ -27,6 +37,14 @@ public class Problems1 {
 		System.out.println(reverseAInteger(4321));
 
 		System.out.println(findMissingNo(arr1));
+
+		System.out.println(removeDuplicateChar("aeppkw"));
+
+		System.out.println(reverseWordAccordingInString("Hello World Java Community"));
+
+		System.out.println(firstNonRepatatingCharacter("aabbcqcf"));
+
+		System.out.println(longestPalindormeSubString("aaaaaa"));
 	}
 
 	// O(n2)
@@ -43,7 +61,6 @@ public class Problems1 {
 	}
 
 	public static int[] twoSumsOptimized(int[] arr, int sum) {
-
 		Map<Integer, Integer> map = new HashMap<>();
 		for (int i = 0; i < arr.length; i++) {
 			if (map.containsKey(arr[i])) {
@@ -57,44 +74,27 @@ public class Problems1 {
 	public static int lengthOfLongestSubstring(String str) {
 		// Sliding window problem
 		Map<Character, Integer> map = new HashMap<>();
-		int start = 0;
 		int maxLen = 0;
-		for (int i = 0; i < str.length(); i++) {
-			Character ch = str.charAt(i);
+		int start = 0;
+		for (int end = 0; end < str.length(); end++) {
+			Character ch = str.charAt(end);
 			if (map.containsKey(ch)) {
-				start = Math.max(start, map.get(ch) + 1);
+				start = Math.max(start, map.get(ch));
 			}
-			map.put(ch, i);
-			maxLen = Math.max(maxLen, i - start + 1);
+			map.put(ch, end);
+			maxLen = Math.max(start, end - start + 1);
 		}
 		return maxLen;
 	}
 
 	// Maximum sum of contiguous subArray
 	public static int maxSumOfContSubArray(int[] arr) {
-
+		// k = 3;
+		// 1,2,3,4,5,6,7,8
 		int k = 3;
-		int start = 0;
-		int maxSum = 0;
-		System.out.println(arr.length);
-		for (int i = 0; i <= arr.length - k; i++) {
-			int sum = 0;
-			for (int j = i; j < i + k; j++) {
-				// Calculate Sum
-				sum = sum + arr[j];
-			}
-			maxSum = Math.max(maxSum, sum);
-		}
-		return maxSum;
-	}
-
-	public static int maxSumOfContSubArrayOptimized(int[] arr) {
-		// { 2, 27, 3, 5, 8, 1, 22 };
-
 		int maxSum = 0;
 		int windowSum = 0;
 		int start = 0;
-		int k = 3;
 		for (int i = 0; i < arr.length; i++) {
 			windowSum = windowSum + arr[i];
 			if (i >= k - 1) {
@@ -107,21 +107,24 @@ public class Problems1 {
 	}
 
 	public static void printMaxElementInSlidWindow(int arr[]) {
+		// 2,4,5,7,8
 		int k = 3;
-		int[] maxEleArr = new int[arr.length - (k - 1)];
+		int[] maxEle = new int[arr.length - (k - 1)];
 		for (int i = 0; i < arr.length - (k - 1); i++) {
-			int maxEle = 0;
-			for (int j = 0; j < i + k && j < arr.length; j++) {
-				maxEle = Math.max(maxEle, arr[j]);
+			int maxNum = 0;
+			for (int j = i; j < i + k && j < arr.length; j++) {
+				maxNum = Math.max(maxNum, arr[j]);
 			}
-			maxEleArr[i] = maxEle;
+			maxEle[i] = maxNum;
 		}
-		System.out.println(Arrays.toString(maxEleArr));
+		System.out.println(Arrays.toString(maxEle));
+
 	}
 
 	public static void threeSum(int arr[], int target) {
 
 		Arrays.sort(arr);
+		// 2,3,5,6,8,9,6, target =10
 		for (int i = 0; i < arr.length - 2; i++) {
 			int start = i;
 			int end = arr.length - 1;
@@ -138,7 +141,6 @@ public class Problems1 {
 				}
 			}
 		}
-
 	}
 
 	// O(n2)
@@ -157,22 +159,48 @@ public class Problems1 {
 	}
 
 	public static int[] findProductOptimized(int arr[]) {
-		System.out.println(Arrays.toString(arr));
-		// Using right and left slide
-		int[] resultArr = new int[arr.length];
-		int temp = 1;
-		for (int i = 0; i < arr.length; i++) {
-			resultArr[i] = temp;
-			temp = temp * arr[i];
-		}
-		System.out.println(Arrays.toString(resultArr));
-		temp = 1;
-		for (int i = arr.length - 1; i >= 0; i--) {
-			resultArr[i] = resultArr[i] * temp;
-			temp = temp * arr[i];
+		// 0,1,2
+		// 1,2,3
+		// 6,3,2
+		return null;
+	}
+
+	public static String longestPalindormeSubString(String s) {
+		// aaaaaa
+		int start = 0, end = 0;
+		for (int i = 0; i < s.length(); i++) {
+			int len1 = findlength(s, i, i);
+			int len2 = findlength(s, i, i + 1);
+			int len = Math.max(len1, len2);
+
+			if (len > end - start) {
+				start = i - (len - 1) / 2;
+				end = i + len / 2;
+			}
 		}
 
-		return resultArr;
+		return s.substring(start, end + 1);
+	}
+
+	public static int findlength(String s, int left, int right) {
+		while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+			left--;
+			right++;
+		}
+		return right - left - 1;
+	}
+
+	public static boolean isPalindrome(String str) {
+		int i = 0;
+		int j = str.length() - 1;
+		while (i < j) {
+			if (str.charAt(i) != str.charAt(j)) {
+				return false;
+			}
+			i++;
+			j--;
+		}
+		return true;
 	}
 
 	public static int reverseAInteger(int number) {
@@ -199,4 +227,43 @@ public class Problems1 {
 		return diff == 0 ? (arr[n])++ : diff;
 	}
 
+	public static String removeDuplicateChar(String str) {
+
+		String distinctStr = "";
+		Set<Character> charSet = new HashSet<>();
+		for (int i = 0; i < str.length(); i++) {
+			Character ch = str.charAt(i);
+			if (!charSet.contains(ch)) {
+				distinctStr = distinctStr + ch;
+			}
+			charSet.add(ch);
+		}
+		return distinctStr;
+	}
+
+	public static String reverseWordAccordingInString(String str) {
+
+		String strArr[] = str.split(" ");
+		String revStr = "";
+		for (int i = strArr.length - 1; i >= 0; i--) {
+			revStr = revStr + strArr[i] + " ";
+		}
+		return revStr;
+	}
+
+	public static String firstNonRepatatingCharacter(String str) {
+		int len = str.length();
+		Map<Character, Integer> map = new LinkedHashMap<>();
+		for (int i = 0; i < len; i++) {
+			Character ch = str.charAt(i);
+			map.put(ch, map.getOrDefault(ch, 0) + 1);
+		}
+
+		for (Entry<Character, Integer> ch : map.entrySet()) {
+			if (ch.getValue() == 1) {
+				return ch.getKey() + "";
+			}
+		}
+		return null;
+	}
 }
