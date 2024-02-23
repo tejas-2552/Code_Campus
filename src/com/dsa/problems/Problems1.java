@@ -23,7 +23,7 @@ public class Problems1 {
 		int arr[] = { 44, 77, 33, 44, 88, 11 };
 		System.out.println(Arrays.toString(twoSumsOptimized(arr, 110)));
 
-		System.out.println(lengthOfLongestSubstring("aepwwkew"));
+		System.out.println(lengthOfLongestSubstring("aepwiwkew"));
 
 		System.out.println(maxSumOfContSubArray(arr));
 
@@ -71,63 +71,63 @@ public class Problems1 {
 		return new int[] { -1, -1 };
 	}
 
+	// Without repeating charcter substring
 	public static int lengthOfLongestSubstring(String str) {
-		// Sliding window problem
+		// pawkwee
 		Map<Character, Integer> map = new HashMap<>();
-		int maxLen = 0;
 		int start = 0;
-		for (int end = 0; end < str.length(); end++) {
-			Character ch = str.charAt(end);
+		int maxLen = 0;
+		for (int i = 0; i < str.length(); i++) {
+			Character ch = str.charAt(i);
 			if (map.containsKey(ch)) {
-				start = Math.max(start, map.get(ch));
+				start = Math.max(start, map.get(ch) + 1);
 			}
-			map.put(ch, end);
-			maxLen = Math.max(start, end - start + 1);
+			map.put(ch, i);
+			maxLen = Math.max(maxLen, i - start + 1);
 		}
 		return maxLen;
 	}
 
 	// Maximum sum of contiguous subArray
 	public static int maxSumOfContSubArray(int[] arr) {
-		// k = 3;
-		// 1,2,3,4,5,6,7,8
+		// SubArray check
 		int k = 3;
-		int maxSum = 0;
 		int windowSum = 0;
 		int start = 0;
+		int maxLen = 0;
 		for (int i = 0; i < arr.length; i++) {
 			windowSum = windowSum + arr[i];
 			if (i >= k - 1) {
-				maxSum = Math.max(maxSum, windowSum);
+				maxLen = Math.max(maxLen, windowSum);
 				windowSum = windowSum - arr[start];
 				start++;
 			}
 		}
-		return maxSum;
+		return maxLen;
 	}
 
 	public static void printMaxElementInSlidWindow(int arr[]) {
-		// 2,4,5,7,8
-		int k = 3;
-		int[] maxEle = new int[arr.length - (k - 1)];
-		for (int i = 0; i < arr.length - (k - 1); i++) {
-			int maxNum = 0;
-			for (int j = i; j < i + k && j < arr.length; j++) {
-				maxNum = Math.max(maxNum, arr[j]);
-			}
-			maxEle[i] = maxNum;
-		}
-		System.out.println(Arrays.toString(maxEle));
 
+		int k = 3;
+		int subLen = k - 1;
+		int[] returnArr = new int[arr.length - subLen];
+		for (int i = 0; i < arr.length - subLen; i++) {
+			int maxEle = 0;
+			for (int j = i; j < i + k && j < arr.length; j++) {
+				maxEle = Math.max(maxEle, arr[j]);
+			}
+			returnArr[i] = maxEle;
+		}
+		System.out.println(Arrays.toString(returnArr));
 	}
 
 	public static void threeSum(int arr[], int target) {
-
+		// i -> start < end
 		Arrays.sort(arr);
-		// 2,3,5,6,8,9,6, target =10
-		for (int i = 0; i < arr.length - 2; i++) {
-			int start = i;
-			int end = arr.length - 1;
+		int len = arr.length - 1;
+		for (int i = 0; i < len - 1; i++) {
+			int start = i + 1;
+			int end = len;
 			while (start < end) {
 				int sum = arr[i] + arr[start] + arr[end];
 				if (sum == target) {
@@ -141,6 +141,7 @@ public class Problems1 {
 				}
 			}
 		}
+
 	}
 
 	// O(n2)
@@ -186,6 +187,9 @@ public class Problems1 {
 		while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
 			left--;
 			right++;
+		}
+		if(left < 0) {
+			left = 0;
 		}
 		return right - left - 1;
 	}
@@ -265,5 +269,10 @@ public class Problems1 {
 			}
 		}
 		return null;
+	}
+
+	public static int maxSumOfSubArray(int[] arr) {
+		int k = 0;
+		return k;
 	}
 }

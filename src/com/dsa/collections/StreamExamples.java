@@ -1,6 +1,7 @@
 package com.dsa.collections;
 
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -224,6 +225,20 @@ public class StreamExamples implements FunctionalInterfaceEx {
 		empListForGrp.stream().collect(Collectors.partitioningBy(emp -> emp.getAge() > 30))
 				.forEach((i, j) -> System.out.println(i + " : " + j));
 
+		printBoardSep();
+		// Print common element present in atleast two arrat
+		Integer[] arr1 = { 1, 2, 3, 9, 8, 7 };
+		Integer[] arr2 = { 5, 4, 3, 6, 8, 9 };
+		Integer[] arr3 = { 2, 4, 5, 1, 6, 8 };
+		List<Integer> integerList = new ArrayList<>();
+		Stream.of(arr1, arr2, arr3).flatMap(i -> Stream.of(i))
+				.collect(Collectors.groupingBy(i -> i, Collectors.counting())).forEach((k, v) -> {
+					if (v >= 2) {
+						integerList.add(k);
+					}
+				});
+		Object[] intArr = integerList.toArray();
+		System.out.println(Arrays.toString(intArr));
 	}
 
 	private static void printBoardSep() {
