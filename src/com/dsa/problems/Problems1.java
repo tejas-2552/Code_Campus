@@ -5,10 +5,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /*
  *  1. Two Sums 
@@ -45,6 +48,8 @@ public class Problems1 {
 		System.out.println(firstNonRepatatingCharacter("aabbcqcf"));
 
 		System.out.println(longestPalindormeSubString("aaaaaa"));
+
+		System.out.println(stringCompression("aacabbccqa"));
 	}
 
 	// O(n2)
@@ -188,7 +193,7 @@ public class Problems1 {
 			left--;
 			right++;
 		}
-		if(left < 0) {
+		if (left < 0) {
 			left = 0;
 		}
 		return right - left - 1;
@@ -271,8 +276,12 @@ public class Problems1 {
 		return null;
 	}
 
-	public static int maxSumOfSubArray(int[] arr) {
-		int k = 0;
-		return k;
+	public static String stringCompression(String str) {
+		StringBuilder strBuilder = new StringBuilder();
+
+		str.chars().mapToObj(c -> (char) c)
+				.collect(Collectors.groupingBy(c -> c, LinkedHashMap::new, Collectors.counting()))
+				.forEach((k, v) -> strBuilder.append(k).append(v));
+		return strBuilder.toString();
 	}
 }
