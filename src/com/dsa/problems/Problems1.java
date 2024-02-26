@@ -313,28 +313,19 @@ public class Problems1 {
 	}
 
 	public static int subArraySum(int[] arr, int k) {
-		int currSum = 0;
-		int start = 0;
-		int end = -1;
-		int maxSum = 0;
+
 		Map<Integer, Integer> map = new HashMap<>();
+		map.put(0, 1);
+		int subArrCnt = 0;
+		int sum = 0;
 		for (int i = 0; i < arr.length; i++) {
-			currSum = currSum + arr[i];
-			if (currSum - k == k) {
-				start = 0;
-				end = i;
-				maxSum++;
-				break;
+			sum = sum + arr[i];
+			if (map.containsKey(sum - k)) {
+				subArrCnt = subArrCnt + map.get(sum - k);
 			}
-			if (map.containsKey(currSum - k)) {
-				start = map.get(currSum - k) + 1;
-				end = i;
-				maxSum++;
-				break;
-			}
-			map.put(currSum, i);
+			map.put(sum, map.getOrDefault(sum, 0) + 1);
 		}
-		return maxSum;
+		return subArrCnt;
 	}
 
 }
