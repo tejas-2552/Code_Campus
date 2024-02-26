@@ -50,6 +50,8 @@ public class Problems1 {
 		System.out.println(longestPalindormeSubString("aaaaaa"));
 
 		System.out.println(stringCompression("aacabbccqa"));
+
+		System.out.println(subarraySum(new int[] { 1, -1, 0 }, 0));
 	}
 
 	// O(n2)
@@ -284,6 +286,30 @@ public class Problems1 {
 				.forEach((k, v) -> strBuilder.append(k).append(v));
 		return strBuilder.toString();
 	}
-	
-	
+
+	// 1,2,3,4,5,6,7 k =5
+	public static int subarraySum(int[] nums, int k) {
+		int maxSum = 0;
+		int size = nums.length;
+		for (int i = 0; i < size; i++) {
+			int start = i;
+			int contSum = 0;
+			boolean contFlag = true;
+			while (start < size) {
+				if (contFlag) {
+					contSum = contSum + nums[start];
+					if (contSum == k) {
+						maxSum++;
+						break;
+					}
+					contFlag = contSum < k;
+				} else {
+					break;
+				}
+				start++;
+			}
+		}
+		return maxSum;
+	}
+
 }
