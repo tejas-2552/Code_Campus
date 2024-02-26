@@ -51,7 +51,7 @@ public class Problems1 {
 
 		System.out.println(stringCompression("aacabbccqa"));
 
-		System.out.println(subarraySum(new int[] { 1, -1, 0 }, 0));
+		System.out.println(subArraySum(new int[] { 1, -1, 0 }, 0));
 	}
 
 	// O(n2)
@@ -308,6 +308,31 @@ public class Problems1 {
 				}
 				start++;
 			}
+		}
+		return maxSum;
+	}
+
+	public static int subArraySum(int[] arr, int k) {
+		int currSum = 0;
+		int start = 0;
+		int end = -1;
+		int maxSum = 0;
+		Map<Integer, Integer> map = new HashMap<>();
+		for (int i = 0; i < arr.length; i++) {
+			currSum = currSum + arr[i];
+			if (currSum - k == k) {
+				start = 0;
+				end = i;
+				maxSum++;
+				break;
+			}
+			if (map.containsKey(currSum - k)) {
+				start = map.get(currSum - k) + 1;
+				end = i;
+				maxSum++;
+				break;
+			}
+			map.put(currSum, i);
 		}
 		return maxSum;
 	}
