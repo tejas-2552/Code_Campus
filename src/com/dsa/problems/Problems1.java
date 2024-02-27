@@ -26,7 +26,7 @@ public class Problems1 {
 		int arr[] = { 44, 77, 33, 44, 88, 11 };
 		System.out.println(Arrays.toString(twoSumsOptimized(arr, 110)));
 
-		System.out.println(lengthOfLongestSubstring("aepwiwkew"));
+		System.out.println(lengthOfLongestSubstring("aepwwkew"));
 
 		System.out.println(maxSumOfContSubArray(arr));
 
@@ -80,14 +80,13 @@ public class Problems1 {
 
 	// Without repeating charcter substring
 	public static int lengthOfLongestSubstring(String str) {
-		// pawkwee
 		Map<Character, Integer> map = new HashMap<>();
 		int start = 0;
 		int maxLen = 0;
 		for (int i = 0; i < str.length(); i++) {
 			Character ch = str.charAt(i);
 			if (map.containsKey(ch)) {
-				start = Math.max(start, map.get(ch) + 1);
+				start = Math.max(maxLen, start + 1);
 			}
 			map.put(ch, i);
 			maxLen = Math.max(maxLen, i - start + 1);
@@ -98,43 +97,43 @@ public class Problems1 {
 	// Maximum sum of contiguous subArray
 	public static int maxSumOfContSubArray(int[] arr) {
 		// SubArray check
-		int k = 3;
+		// int arr[] = { 44, 77, 33, 44, 88, 11 };
 		int windowSum = 0;
+		int k = 3;
 		int start = 0;
-		int maxLen = 0;
-		for (int i = 0; i < arr.length; i++) {
+		int len = arr.length;
+		int maxSum = 0;
+		for (int i = 0; i < len; i++) {
 			windowSum = windowSum + arr[i];
 			if (i >= k - 1) {
-				maxLen = Math.max(maxLen, windowSum);
+				maxSum = Math.max(maxSum, windowSum);
 				windowSum = windowSum - arr[start];
 				start++;
 			}
 		}
-		return maxLen;
+		return maxSum;
 	}
 
 	public static void printMaxElementInSlidWindow(int arr[]) {
-
+		// int arr[] = { 44, 77, 33, 44, 88, 11 };
 		int k = 3;
-		int subLen = k - 1;
-		int[] returnArr = new int[arr.length - subLen];
-		for (int i = 0; i < arr.length - subLen; i++) {
+		int[] maxEleArr = new int[arr.length - k + 1];
+		for (int i = 0; i < maxEleArr.length; i++) {
 			int maxEle = 0;
 			for (int j = i; j < i + k && j < arr.length; j++) {
 				maxEle = Math.max(maxEle, arr[j]);
 			}
-			returnArr[i] = maxEle;
+			maxEleArr[i] = maxEle;
 		}
-		System.out.println(Arrays.toString(returnArr));
+		System.out.println(Arrays.toString(maxEleArr));
 	}
 
 	public static void threeSum(int arr[], int target) {
-		// i -> start < end
+		// For Sum need to sort
 		Arrays.sort(arr);
-		int len = arr.length - 1;
-		for (int i = 0; i < len - 1; i++) {
+		for (int i = 0; i < arr.length - 2; i++) {
 			int start = i + 1;
-			int end = len;
+			int end = arr.length - 1;
 			while (start < end) {
 				int sum = arr[i] + arr[start] + arr[end];
 				if (sum == target) {
@@ -146,6 +145,7 @@ public class Problems1 {
 				} else {
 					start++;
 				}
+
 			}
 		}
 
@@ -315,17 +315,17 @@ public class Problems1 {
 	public static int subArraySum(int[] arr, int k) {
 
 		Map<Integer, Integer> map = new HashMap<>();
-		map.put(0, 1);
-		int subArrCnt = 0;
+		int count = 0;
 		int sum = 0;
+		map.put(0, 1);
 		for (int i = 0; i < arr.length; i++) {
 			sum = sum + arr[i];
 			if (map.containsKey(sum - k)) {
-				subArrCnt = subArrCnt + map.get(sum - k);
+				count += map.get(sum - k);
 			}
-			map.put(sum, map.getOrDefault(sum, 0) + 1);
+			map.put(sum, map.getOrDefault(sum - k, 0) + 1);
 		}
-		return subArrCnt;
+		return count;
 	}
 
 }
