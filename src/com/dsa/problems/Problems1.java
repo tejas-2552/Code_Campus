@@ -52,6 +52,8 @@ public class Problems1 {
 		System.out.println(stringCompression("aacabbccqa"));
 
 		System.out.println(subArraySum(new int[] { 1, -1, 0 }, 0));
+
+		System.out.println(climbingStairsCount(5));
 	}
 
 	// O(n2)
@@ -328,4 +330,17 @@ public class Problems1 {
 		return count;
 	}
 
+	public static int climbingStairsCount(int k) {
+
+		int count = 0;
+		int pre = 0;
+		int curr = 1;
+		for (int i = 0; i < k; i++) {
+			count = pre + curr;
+			pre = curr;
+			curr = count;
+
+		}
+		return count;
+	}
 }
