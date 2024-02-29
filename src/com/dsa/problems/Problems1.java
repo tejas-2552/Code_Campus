@@ -331,7 +331,6 @@ public class Problems1 {
 	}
 
 	public static int climbingStairsCount(int k) {
-
 		int count = 0;
 		int pre = 0;
 		int curr = 1;
@@ -339,7 +338,6 @@ public class Problems1 {
 			count = pre + curr;
 			pre = curr;
 			curr = count;
-
 		}
 		return count;
 	}
