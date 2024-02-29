@@ -1,6 +1,6 @@
 package com.dsa.multithreading;
 
-public class ThreadClass extends Thread{
+public class ThreadClass extends Thread {
 
 	int i;
 
@@ -8,9 +8,30 @@ public class ThreadClass extends Thread{
 		this.i = i;
 	}
 
-	public void setValue(int k) {
-		i++;
-		System.out.println("i : " + i + " , " + Thread.currentThread().getName());
+	public synchronized void setValue(int k) {
+		k++;
+		if (Thread.currentThread().getName().equalsIgnoreCase("Thread 1")) {
+			System.out.println("i : " + k + " , " + Thread.currentThread().getName());
+		} else {
+			System.out.println("\ti : " + k + " , " + Thread.currentThread().getName());
+		}
+		i = k;
+	}
+
+	// Synchronized method
+	public synchronized void incrementCounter() {
+		for (int i = 1; i < 500; i++) {
+			System.out.println(Thread.currentThread().getName() + " - Counter: " + this.i++);
+			try {
+				if (Thread.currentThread().getName().equalsIgnoreCase("Thread 1")) {
+					Thread.sleep(50); // Simulating some work				
+				}else {
+					Thread.sleep(100); // Simulating some work
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public int getValue() {
@@ -19,9 +40,9 @@ public class ThreadClass extends Thread{
 
 	@Override
 	public void run() {
-		
+
 		System.out.println("Thread Name : " + Thread.currentThread().getName());
-		
+
 	}
-	
+
 }
