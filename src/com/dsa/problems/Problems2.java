@@ -32,6 +32,9 @@ public class Problems2 {
 		String[] wordPairs = { "15", "12", "45", "345", "123", "45", "1234", "12", "345", "12", "12" };
 		String strPairValue = "12345";
 		System.out.println(countPairs(strPairValue, wordPairs));
+
+		String[] commonPrefix = { "clap", "clop", "clover", "clue" };
+		System.out.println(longestCommonPrefix(commonPrefix));
 	}
 
 	public static int evePrnSol(String[] tokens) {
@@ -186,5 +189,18 @@ public class Problems2 {
 		}
 		return count;
 
+	}
+
+	public static int longestCommonPrefix(String[] arr) {
+		Arrays.sort(arr);
+		String preFix = "";
+		for (int j = 0; j < arr[0].length(); j++) {
+			if (arr[0].charAt(j) == arr[arr.length - 1].charAt(j)) {
+				preFix = preFix + arr[0].charAt(j);
+			} else {
+				break;
+			}
+		}
+		return preFix.length();
 	}
 }
