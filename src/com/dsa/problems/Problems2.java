@@ -201,6 +201,42 @@ public class Problems2 {
 				break;
 			}
 		}
+		moveZeros();
 		return preFix.length();
+
+	}
+
+	public static void moveZeros() {
+		int arr[] = { 0, 2, 4, 0, 12, 0, 9, 0 };
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] == 0) {
+				for (int j = i; j < arr.length - 1; j++) {
+					// swap
+					int temp = arr[j];
+					arr[j] = arr[j + 1];
+					arr[j + 1] = temp;
+				}
+			}
+		}
+		System.out.println(Arrays.toString(arr));
+		moveZerosOptimized();
+	}
+
+	// Time and slice
+	public static void moveZerosOptimized() {
+		int arr[] = { 2, 4, 0, 12, 0, 9, 0 };
+		int insertPos = 0;
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] != 0) {
+				arr[insertPos] = arr[i];
+				insertPos++;
+			}
+		}
+		while (insertPos < arr.length) {
+			arr[insertPos] = 0;
+			insertPos++;
+		}
+
+		System.out.println(Arrays.toString(arr));
 	}
 }
