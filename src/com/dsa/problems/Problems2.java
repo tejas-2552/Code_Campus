@@ -1,5 +1,6 @@
 package com.dsa.problems;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,6 +10,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
+import java.util.stream.Stream;
 
 public class Problems2 {
 	public static void main(String args[]) {
@@ -35,6 +37,12 @@ public class Problems2 {
 
 		String[] commonPrefix = { "clap", "clop", "clover", "clue" };
 		System.out.println(longestCommonPrefix(commonPrefix));
+
+		moveZeros();
+		moveZerosOptimized();
+
+		groupAnagrams();
+
 	}
 
 	public static int evePrnSol(String[] tokens) {
@@ -201,7 +209,7 @@ public class Problems2 {
 				break;
 			}
 		}
-		moveZeros();
+
 		return preFix.length();
 
 	}
@@ -219,7 +227,6 @@ public class Problems2 {
 			}
 		}
 		System.out.println(Arrays.toString(arr));
-		moveZerosOptimized();
 	}
 
 	// Time and slice
@@ -238,5 +245,39 @@ public class Problems2 {
 		}
 
 		System.out.println(Arrays.toString(arr));
+	}
+
+	public static void groupAnagrams() {
+		String[] str = { "bat", "eat", "tea", "tan", "ate", "nat" };
+		Map<String, List<String>> map = new HashMap<>();
+		for (int i = 0; i < str.length; i++) {
+			char[] ch = str[i].toCharArray();
+			Arrays.sort(ch);
+			String s = new String(ch);
+			List<String> list = map.getOrDefault(s, new ArrayList<>());
+			list.add(str[i]);
+			map.put(s, list);
+		}
+
+		map.forEach((k, v) -> System.out.print(v));
+	}
+
+	public static int[] rotateArray(int[] arr, int k) {
+
+		k %= arr.length;
+		reverseArray(arr, 0, arr.length - 1);
+		reverseArray(arr, 0, k - 1);
+		reverseArray(arr, k, arr.length - 1);
+		return arr;
+
+	}
+
+	public static void reverseArray(int[] arr, int start, int end) {
+		for (; start < end; start++, end--) {
+			int temp = arr[start];
+			arr[start] = arr[end];
+			arr[end] = temp;
+		}
+		return arr;
 	}
 }
