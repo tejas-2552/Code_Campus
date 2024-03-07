@@ -43,6 +43,8 @@ public class Problems2 {
 
 		groupAnagrams();
 
+		printRepeatElementsInAnArray(new int[] { 2, 2, 4, 6, 7, 4, 9, 7 });
+
 	}
 
 	public static int evePrnSol(String[] tokens) {
@@ -272,12 +274,23 @@ public class Problems2 {
 
 	}
 
-	public static void reverseArray(int[] arr, int start, int end) {
+	public static int[] reverseArray(int[] arr, int start, int end) {
 		for (; start < end; start++, end--) {
 			int temp = arr[start];
 			arr[start] = arr[end];
 			arr[end] = temp;
 		}
 		return arr;
+	}
+
+	public static void printRepeatElementsInAnArray(int[] arr) {
+		System.out.println();
+		Set<Integer> set = new HashSet<>();
+		for (int i = 0; i < arr.length; i++) {
+			if (set.contains(arr[i])) {
+				System.out.print(arr[i] + " ");
+			}
+			set.add(arr[i]);
+		}
 	}
 }
