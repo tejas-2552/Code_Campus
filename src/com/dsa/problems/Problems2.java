@@ -45,6 +45,9 @@ public class Problems2 {
 
 		printRepeatElementsInAnArray(new int[] { 2, 2, 4, 6, 7, 4, 9, 7 });
 
+		System.out.println();
+		System.out.println(sumOfSquareNum(2147483600));
+
 	}
 
 	public static int evePrnSol(String[] tokens) {
@@ -292,5 +295,33 @@ public class Problems2 {
 			}
 			set.add(arr[i]);
 		}
+	}
+
+	// Return true if a number is a sq total of two numbers
+	// https://www.youtube.com/watch?v=DlQQMXlMxFQ
+	public static boolean sumOfSquareNum(int num) {
+		if (num < 0) {
+			return false;
+		}
+
+		int start = 0;
+		int end = (int) Math.sqrt(num);
+
+		try {
+			while (start <= end) {
+
+				int sum = (int) (Math.pow(start, 2) + Math.pow(end, 2));
+				if (sum == num) {
+					return true;
+				} else if (sum < num) {
+					start++;
+				} else {
+					end--;
+				}
+			}
+		} finally {
+			System.out.println(start + " + " + end);
+		}
+		return false;
 	}
 }
