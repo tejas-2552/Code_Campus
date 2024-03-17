@@ -28,8 +28,11 @@ public class MediumHardProblems2 {
 
 		// https://www.youtube.com/watch?v=iXLMMbdjeNM&list=PLFdAYMIVJQHO1paovM-tu2vtGzQU72z_U&index=5
 		System.out.println(elementInRotatedSubArr(new int[] { 6, 7, 8, 1, 2, 3, 4, 5 }, 8, 0, 7));
-		
+
 		printGroupAnagrams();
+
+		// https://www.youtube.com/watch?v=X6DqnrpjEWA&list=PLFdAYMIVJQHO1paovM-tu2vtGzQU72z_U&index=9
+
 	}
 
 	public static boolean validString(String str) {
@@ -201,4 +204,25 @@ public class MediumHardProblems2 {
 		map.forEach((k, v) -> System.out.println(k + " : " + v));
 	}
 
+	public static int minimumLossWhileSellingHouse(int[] arr) {
+		Map<Integer, Integer> priceIndexMap = new HashMap<>();
+		for (int i = 0; i < arr.length; i++) {
+			priceIndexMap.put(arr[i], i);
+		}
+
+		Arrays.sort(arr);
+		long minLoss = Long.MIN_VALUE;
+
+		for (int i = arr.length - 1; i > 0; i--) {
+
+			if (priceIndexMap.get(arr[i]) > priceIndexMap.get(arr[i - 1])) {
+				continue;
+			}
+
+			long dayLoss = arr[i] - arr[i - 1];
+			minLoss = Math.min(dayLoss, minLoss);
+		}
+
+		return (int) minLoss;
+	}
 }
