@@ -47,6 +47,8 @@ public class Problems2 {
 
 		System.out.println();
 		System.out.println(sumOfSquareNum(2147483600));
+		
+		System.out.println(Arrays.toString(generateBinaryNumbers(10)));
 
 	}
 
@@ -323,5 +325,21 @@ public class Problems2 {
 			System.out.println(start + " + " + end);
 		}
 		return false;
+	}
+
+	public static String[] generateBinaryNumbers(int n) {
+		Queue<String> q = new LinkedList<>();
+		String[] arr = new String[n];
+		q.offer("1");
+		for (int i = 0; i < n; i++) {
+			arr[i] = q.poll();
+			String n1 = arr[i] + "0";
+			String n2 = arr[i] + "1";
+
+			q.offer(n1);
+			q.offer(n2);
+		}
+		return arr;
+
 	}
 }
