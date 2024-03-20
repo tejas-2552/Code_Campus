@@ -2,6 +2,7 @@ package com.dsa.ds;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class GraphWithLL {
 
@@ -54,6 +55,25 @@ public class GraphWithLL {
 		}
 	}
 
+	public void depthFirstSearch(int val) {
+		boolean[] visited = new boolean[V];
+		Stack<Integer> stack = new Stack<>();
+		stack.push(val);
+		while (!stack.isEmpty()) {
+			int e = stack.pop();
+			if (!visited[e]) {
+				visited[e] = true;
+				System.out.print(e + " ");
+				for (Integer v : adj[e]) {
+					if (!visited[v]) {
+						stack.push(v);
+					}
+				}
+			}
+
+		}
+	}
+
 	public static void main(String args[]) {
 		GraphWithLL gll = new GraphWithLL(5);
 		gll.addEdge(0, 1);
@@ -63,6 +83,7 @@ public class GraphWithLL {
 		gll.addEdge(2, 4);
 		System.out.println(gll.toString());
 		gll.breadthFirstSearch(0);
-		
+		System.out.println();
+		gll.depthFirstSearch(0);
 	}
 }
