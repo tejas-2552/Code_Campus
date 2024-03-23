@@ -1,5 +1,7 @@
 package com.dsa.problems;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -33,6 +35,8 @@ public class MediumHardProblems2 {
 
 		// https://www.youtube.com/watch?v=X6DqnrpjEWA&list=PLFdAYMIVJQHO1paovM-tu2vtGzQU72z_U&index=9
 
+		// https://www.youtube.com/watch?v=PE42o2HatfA
+		decodeString("t1e3s6t No1w s1e1c1o3nd w3e h2a2ve");
 	}
 
 	public static boolean validString(String str) {
@@ -224,5 +228,29 @@ public class MediumHardProblems2 {
 		}
 
 		return (int) minLoss;
+	}
+
+	// https://www.youtube.com/watch?v=PE42o2HatfA
+	public static void decodeString(String str) {
+		/*
+		 * String = te1st Hel2lo worl3l1d hi
+		 */
+
+		Map<Integer, String> map = new TreeMap<>();
+		String[] strArr = str.split(" ");
+		for (int i = 0; i < strArr.length; i++) {
+			StringBuilder plainText = new StringBuilder();
+			int cnt = 0;
+			for (char ch : strArr[i].toCharArray()) {
+				if (Character.isDigit(ch)) {
+					cnt = Character.getNumericValue(ch) + cnt;
+				} else {
+					plainText.append(ch);
+				}
+			}
+			map.put(cnt, plainText.toString());
+		}
+		map.forEach((k,v) -> System.out.print(v + " "));
+	
 	}
 }

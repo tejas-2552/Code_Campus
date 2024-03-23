@@ -70,10 +70,10 @@ public class Problems1 {
 	}
 
 	public static int[] twoSumsOptimized(int[] arr, int sum) {
-		Map<Integer, Integer> map = new HashMap<>();
+		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
 		for (int i = 0; i < arr.length; i++) {
 			if (map.containsKey(arr[i])) {
-				return new int[] { map.get(arr[i]), i };
+				return new int[] { i, map.get(arr[i]) };
 			}
 			map.put(sum - arr[i], i);
 		}
