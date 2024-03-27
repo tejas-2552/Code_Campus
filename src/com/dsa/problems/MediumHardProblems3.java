@@ -26,6 +26,10 @@ public class MediumHardProblems3 {
 		System.out.println();
 		System.out.println(validBrackets("{hello[world(show)][]}"));
 
+		// Container with maximum water
+		// https://www.youtube.com/watch?v=w7ftYsZtIbs&list=PLFdAYMIVJQHO1paovM-tu2vtGzQU72z_U&index=13
+		int area = maxAreaWaterContainer(new int[] { 20, 15, 8, 9, 12 });
+		System.out.println(area);
 	}
 
 	// BruteForce Approach
@@ -123,8 +127,23 @@ public class MediumHardProblems3 {
 		return false;
 	}
 
-	private static void swtich(String string) {
-		// TODO Auto-generated method stub
+	public static int maxAreaWaterContainer(int[] arr) {
+
+		int left = 0;
+		int right = arr.length - 1;
+		int max = Integer.MIN_VALUE;
+		while (left < right) {
+
+			int area = Math.min(arr[left], arr[right]) * right - left;
+			max = Math.max(max, area);
+
+			if (arr[left] < arr[right]) {
+				left++;
+			} else {
+				right--;
+			}
+		}
+		return max;
 
 	}
 }
