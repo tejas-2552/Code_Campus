@@ -30,6 +30,10 @@ public class MediumHardProblems3 {
 		// https://www.youtube.com/watch?v=w7ftYsZtIbs&list=PLFdAYMIVJQHO1paovM-tu2vtGzQU72z_U&index=13
 		int area = maxAreaWaterContainer(new int[] { 20, 15, 8, 9, 12 });
 		System.out.println(area);
+
+		// first and last position of a element
+		// https://www.youtube.com/watch?v=bvaYNDKp830&list=PLFdAYMIVJQHO1paovM-tu2vtGzQU72z_U&index=16
+		System.out.println(Arrays.toString(searchElementRange(new int[] { 1, 2, 3, 5, 5, 5, 5, 5, 5, 6 }, 5)));
 	}
 
 	// BruteForce Approach
@@ -145,5 +149,53 @@ public class MediumHardProblems3 {
 		}
 		return max;
 
+	}
+
+	public static int[] searchElementRange(int[] arr, int target) {
+
+		int start = findLeftBound(arr, target);
+		int end = findRightBound(arr, target);
+
+		return new int[] { start, end };
+
+	}
+
+	private static int findRightBound(int[] arr, int target) {
+		// TODO Auto-generated method stub
+		int index = -1;
+		int low = 0;
+		int high = arr.length - 1;
+		while (low <= high) {
+			int mid = low + (high - low) / 2;
+			if (arr[mid] == target) {
+				index = mid;
+				low = mid + 1;
+			} else if (arr[mid] < target) {
+				low = mid + 1;
+			} else {
+				high = mid - 1;
+			}
+		}
+		return index;
+	}
+
+	private static int findLeftBound(int[] arr, int target) {
+
+		int index = -1;
+		int low = 0;
+		int high = arr.length - 1;
+		while (low <= high) {
+			int mid = low + (high - low) / 2;
+			if (arr[mid] == target) {
+				index = mid;
+				high = mid - 1;
+			} else if (arr[mid] < target) {
+				low = mid + 1;
+			} else {
+				high = mid - 1;
+			}
+
+		}
+		return index;
 	}
 }
