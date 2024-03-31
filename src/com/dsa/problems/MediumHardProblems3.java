@@ -1,8 +1,10 @@
 package com.dsa.problems;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.Stack;
 import java.util.TreeMap;
 
@@ -34,6 +36,10 @@ public class MediumHardProblems3 {
 		// first and last position of a element
 		// https://www.youtube.com/watch?v=bvaYNDKp830&list=PLFdAYMIVJQHO1paovM-tu2vtGzQU72z_U&index=16
 		System.out.println(Arrays.toString(searchElementRange(new int[] { 1, 2, 3, 5, 5, 5, 5, 5, 5, 6 }, 5)));
+
+		// Find duplicate number
+		// https://www.youtube.com/watch?v=_n5MR8IxR6c&list=PLFdAYMIVJQHO1paovM-tu2vtGzQU72z_U&index=17
+		System.out.println(findDuplicateElement(new int[] { 1, 3, 3, 3, 5, 5, 5, 7 }));
 	}
 
 	// BruteForce Approach
@@ -197,5 +203,15 @@ public class MediumHardProblems3 {
 
 		}
 		return index;
+	}
+
+	private static int findDuplicateElement(int[] arr) {
+		Set<Integer> set = new HashSet<>();
+		for (int i = 0; i < arr.length; i++) {
+			if (!set.add(arr[i])) {
+				return arr[i];
+			}
+		}
+		return -1;
 	}
 }
