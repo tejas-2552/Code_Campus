@@ -32,7 +32,6 @@ public class FindCommonCharacters {
 	public static void main(String arsg[]) {
 		String[] words = { "bqqqqqella", "qlabel", "qroller" };
 		System.out.println(commonCharsV2(words).toString());
-		System.out.println(commonChars(words).toString());
 	}
 	
 	public static List<String> commonCharsV2(String[] words) {
@@ -59,6 +58,7 @@ public class FindCommonCharacters {
         return result;
     }
 
+	// Not working
 	public static List<String> commonChars(String[] words) {
 
 		HashMap<String, Integer> map = new HashMap<>();

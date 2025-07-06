@@ -46,7 +46,7 @@ public class FindPivotIndex {
 
 		int[] nums = { 1, 7, 3, 6, 5, 6 };
 		System.out.println(pivotIndex(nums));
-
+		printPivot(nums);
 	}
 
 	public static int pivotIndex(int[] nums) {
@@ -68,6 +68,34 @@ public class FindPivotIndex {
 			System.out.println();
 		}
 		return -1;
+	}
+
+	public static void printPivot(int nums[]) {
+		int totalSum = 0;
+		for (int i : nums) {
+			totalSum += i;
+		}
+
+		int leftSum = 0;
+		boolean pFlag = false;
+		int pivotIndx = 0;
+
+		for (int j = 0; j < nums.length; j++) {
+			int rightSum = totalSum - leftSum - nums[j];
+			if (rightSum == leftSum) {
+				pFlag = true;
+				pivotIndx = j;
+				break;
+			}
+			leftSum += nums[j];
+		}
+
+		if (pFlag) {
+			System.out.println("pivot index is : " + pivotIndx);
+		} else {
+			System.out.println("no flag found");
+
+		}
 	}
 
 }
