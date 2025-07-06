@@ -37,16 +37,16 @@ import java.util.HashSet;
 public class MaximumSumOfDistinctSubarraysWithLengthK {
 
 	public static void main(String arsg[]) {
+		int[] nums = new int[] { 1, 5, 4, 2, 9, 9, 9 };
+		System.out.println(maximumSubarraySum(nums, 3));
 
 	}
 
 	public static long maximumSubarraySum(int[] nums, int k) {
-
 		int maxSum = 0;
 		for (int i = 0; i <= nums.length - k; i++) {
-			calcSum(nums, i, i + k);
+			maxSum = Math.max(maxSum, calcSum(nums, i, i + k));
 		}
-
 		return maxSum;
 	}
 
