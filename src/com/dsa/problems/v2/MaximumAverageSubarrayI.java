@@ -57,6 +57,6 @@ public class MaximumAverageSubarrayI {
 			System.out.print(" :: " + sum);
 			System.out.println();
 		}
-
 	}
+	
 }
