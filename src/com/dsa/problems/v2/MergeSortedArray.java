@@ -40,7 +40,9 @@ import java.util.Arrays;
 public class MergeSortedArray {
 
 	public static void main(String arsg[]) {
-		merge(new int[] { 1, 2, 3, 0, 0, 0 , 0}, 3, new int[] { 2, 5, 6, 7 }, 4);
+		merge(new int[] { 1, 2, 3, 0, 0, 0, 0 }, 3, new int[] { 2, 5, 6, 7 }, 4);
+		
+		mergeSortedArray(new int[] { 1, 2, 3, 0, 0, 0, 0 }, 3, new int[] { 2, 5, 6, 7 }, 4);
 	}
 
 	public static void merge(int[] nums1, int m, int[] nums2, int n) {
@@ -95,6 +97,29 @@ public class MergeSortedArray {
 		}
 
 		Arrays.sort(nums1);
+		System.out.println(Arrays.toString(nums1));
+	}
+
+	public static void mergeSortedArray(int[] nums1, int m, int[] nums2, int n) {
+
+		/*
+		 * * Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3 Output:
+		 * [1,2,2,3,5,6]
+		 */
+
+		m = m - 1;
+		n = n - 1;
+		int pointer = nums1.length - 1;
+		while (m >= 0 && n >= 0) {
+			if (nums1[m] > nums2[n]) {
+				nums1[pointer] = nums1[m];
+				m--;
+			} else {
+				nums1[pointer] = nums2[n];
+				n--;
+			}
+			pointer--;
+		}
 		System.out.println(Arrays.toString(nums1));
 	}
 }

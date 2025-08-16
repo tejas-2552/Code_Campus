@@ -29,7 +29,7 @@ public class ValidMountainArray {
 
 	public static void main(String arags[]) {
 
-		int[] arr = { 4, 3, 2, 1 };
+		int[] arr = { 1, 2, 4, 5 };
 		System.out.println(validMountainArray(arr));
 	}
 
@@ -37,16 +37,22 @@ public class ValidMountainArray {
 		if (arr.length < 3) {
 			return false;
 		}
-		int i = arr[arr.length - 1];
-		boolean rev = false;
-		for (int j = arr.length - 2; j >= 0; j--) {
-			if (i < arr[j]) {
-				i = arr[j];
-			} else if(i > arr[j]){
-				rev = true;
+		int i = 0;
+		for (; i < arr.length - 1; i++) {
+			if (arr[i] > arr[i + 1]) {
+				i++;
+				break;
+			} else if (arr[i] == arr[i + 1]) {
+				return false;
 			}
 		}
-		return false;
+
+		for (; i < arr.length; i++) {
+			if (arr[i - 1] <= arr[i]) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }

@@ -35,6 +35,7 @@ public class FindAllAnagramsInAString {
 		String s = "aacbaebabacd", p = "abc";
 		System.out.println(findAnagrams(s, p).toString());
 		findAnagramsPracticeSol(s, p);
+		findAnagramsBFV1(s, p);
 	}
 
 	public static List<Integer> findAnagramsBF(String s, String p) {
@@ -170,6 +171,28 @@ public class FindAllAnagramsInAString {
 
 		}
 		System.out.println(result.toString());
+	}
+
+	public static void findAnagramsBFV1(String s, String t) {
+		List<Integer> list = new LinkedList<Integer>();
+		int[] sArr = new int[26];
+		int[] tArr = new int[26];
+		for (int i = 0; i < t.length(); i++) {
+			sArr[s.charAt(i) - 'a']++;
+			tArr[t.charAt(i) - 'a']++;
+		}
+		for (int j = 0; j < s.length() - t.length(); j++) {
+
+			if (areArraysEqual(sArr, tArr)) {
+				list.add(j);
+			}
+			if (j + t.length() < s.length()) {
+				sArr[s.charAt(j) - 'a']--;	
+				sArr[s.charAt(j + t.length()) - 'a']++;
+			}
+
+		}
+		System.out.println(list);
 	}
 
 }

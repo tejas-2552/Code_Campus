@@ -1,6 +1,8 @@
 package com.dsa.problems.v2;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /*
  * Given an integer array nums sorted in non-decreasing order, remove the
@@ -53,6 +55,7 @@ public class RemoveDuplicatesFromSortedArray {
 	public static void main(String args[]) {
 
 		System.out.println(removeDuplicates(new int[] { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 }));
+		removeDuplicatesPractice(new int[] { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 });
 
 	}
 
@@ -84,4 +87,20 @@ public class RemoveDuplicatesFromSortedArray {
 		return uniCnt;
 
 	}
+
+	public static void removeDuplicatesPractice(int[] nums) {
+
+		/*
+		 * Input: nums = [0,1,1,1,1,2,2,3,3,4] Output: 5, nums = [0,1,2,3,4,_,_,_,_,_]
+		 */
+		int count = 0;
+		Set<Integer> set = new HashSet<>();
+		for (int i = 0; i < nums.length; i++) {
+			if (set.add(nums[i])) {
+				count++;
+			}
+		}
+		System.out.println(count);
+	}
+
 }

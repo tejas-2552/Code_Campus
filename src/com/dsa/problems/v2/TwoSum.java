@@ -7,11 +7,11 @@ import java.util.Map;
 public class TwoSum {
 
 	public static void main(String[] args) {
-		int[] nums = { 2, 7, 11, 15 };
-		int target = 2;
+		int[] nums = { 1, 4, 8, 10, 38, 45 };
+		int target = 18;
 
 		System.out.println(Arrays.toString(twoSumV2(nums, target)));
-
+		System.out.println(Arrays.toString(twoSumTwoPointerApproch(nums, target)));
 	}
 
 	public static int[] twoSum(int[] nums, int target) {
@@ -36,6 +36,24 @@ public class TwoSum {
 			map.put(nums[i], i);
 		}
 		return new int[] { 0, 0 };
+	}
+
+	public static int[] twoSumTwoPointerApproch(int[] nums, int target) {
+		Arrays.sort(nums);
+		int start = 0;
+		int end = nums.length - 1;
+		while (start < end) {
+			int sum = nums[start] + nums[end];
+			if (sum == target) {
+				return new int[] { start, end };
+			} else if (sum < target) {
+				start++;
+			} else {
+				end--;
+			}
+
+		}
+		return new int[] { start, end };
 	}
 
 }

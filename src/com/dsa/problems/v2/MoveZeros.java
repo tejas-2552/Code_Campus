@@ -22,8 +22,9 @@ import java.util.Arrays;
 public class MoveZeros {
 
 	public static void main(String a[]) {
-		int[] nums = { 0, 0, 1, 1, 0, 3, 0, 12, 0 ,122};
+		int[] nums = { 0, 0, 1, 1, 0, 3, 0, 12, 0, 122 };
 		moveZeroes(nums);
+		moveZeroesPractice(nums);
 	}
 
 	public static void moveZeroes(int[] nums) {
@@ -53,6 +54,22 @@ public class MoveZeros {
 				}
 			}
 		}
+		System.out.println(Arrays.toString(nums));
+	}
+
+	public static void moveZeroesPractice(int[] nums) {
+		// Input: nums = [0,1,0,3,12] Output: [1,3,12,0,0]
+		int insertPos = 0;
+		for (int i = 0; i < nums.length; i++) {
+			if (nums[i] != 0) {
+				nums[insertPos] = nums[i];
+				insertPos++;
+			}
+		}
+		while (insertPos < nums.length) {
+			nums[insertPos] = 0;
+		}
+
 		System.out.println(Arrays.toString(nums));
 	}
 }
